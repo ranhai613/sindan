@@ -1,0 +1,226 @@
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+　<title>性格診断テスト戸山版</title> 
+  <style>
+      body{
+          background: antiquewhite;
+      }
+      h1{
+          text-align: center;
+          border-bottom: 3px solid;
+          width: 400px;
+          margin-right:auto;
+          margin-left: auto;
+      }
+      #m1{
+          font-size: 50px;
+      }
+      #m2{
+          font-size: 40px;
+      }
+      div{
+          text-align: center;
+      }
+      .startbtn{
+          border: 2px solid #000;
+          padding:20px;
+          font-size:1em;
+      }
+      .button{
+          width: 550px;
+          padding: 20px;
+          background: rgb(248, 247, 242);
+          border: solid 5px;
+          font-size: 3em;
+          border-radius: 10px;
+          margin-bottom: 5px;
+      }
+      #b1{
+          border-color: lightcoral;
+      }
+      #b2{
+          border-color: lightblue;
+      }
+      #b3{
+          border-color: khaki;
+      }
+      h2{
+          text-align: center;
+          width: 400px;
+          margin-right: auto;
+          margin-left: auto;
+          padding: 1rem 1rem;
+          border: 3px solid #d8d8d8;
+          border-radius: 0;
+          background: #f9f9f9;
+          font-family: "M PLUS Rounded 1c";
+      }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+</head>
+<body onload="first()">
+  <h1>性格診断テスト戸山版</h1>
+  <div id="m1"></div>
+  <div id="m2"></div>
+  <div>
+      <span id="b1"></span><br><span id="b2"></span><br><span id="b3"></span>
+  </div>
+  <canvas id="myRaderChart"></canvas>
+  <h2 id="message">説明しよう！</h2>
+  <iframe width="200" height="115" src="https://www.youtube.com/watch?v=rwAns-qsMPo&autoplay=1" frameborder="0" allowfullscreen></iframe>
+  <!-- CDN -->
+　<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+
+  <script>
+   var score=[0,0,0,0,0];
+   function first(){
+        next="q1"
+        startbtn = document.createElement("input")
+        startbtn.setAttribute("type","button")
+        startbtn.setAttribute("value","START!")
+        startbtn.setAttribute("class","startbtn")
+        startbtn.setAttribute("onclick","functionlist[next]()")
+        m2.appendChild(startbtn)
+   }
+   function show(){
+        score[0]+=point[0];//戸山性
+        score[1]+=point[1];//個性
+        score[2]+=point[2];//ユーモア
+        score[3]+=point[3];//共産性
+        score[4]+=point[4];//知性
+        document.getElementById('b1').textContent = "";
+        document.getElementById('b2').textContent = "";
+        document.getElementById('b3').textContent = "";
+        document.getElementById('m1').textContent = "Q"+content[0];
+        document.getElementById('m2').textContent =content[1];
+        btna = document.createElement("input")
+        btna.setAttribute("type","button")
+        btna.setAttribute("value",content[2])
+        btna.setAttribute("onclick","answer1()")
+        btna.setAttribute("class","button")
+        btna.setAttribute("id","b1")
+        b1.appendChild(btna)
+        btnb = document.createElement("input")
+        btnb.setAttribute("type","button")
+        btnb.setAttribute("value",content[3])
+        btnb.setAttribute("onclick","answer2()")
+        btnb.setAttribute("class","button")
+        btnb.setAttribute("id","b2")
+        b2.appendChild(btnb)
+        btnc = document.createElement("input")
+        btnc.setAttribute("type","button")
+        btnc.setAttribute("value",content[4])
+        btnc.setAttribute("onclick","answer3()")
+        btnc.setAttribute("class","button")
+        btnc.setAttribute("id","b3")
+        b3.appendChild(btnc)
+        document.getElementById("message").textContent = content[5]
+   }
+   //point=[戸山性, 個性, ユーモア, 共産性, 知性]
+   //content=[問題番号,問題文,答え１,答え２,答え３]
+   function answer1(){
+       next="q"+(parseInt(content[0])+1);
+       answer=1;
+       functionlist[next]();
+   }
+   function answer2(){
+       next="q"+(parseInt(content[0])+1);
+       answer=2;
+       functionlist[next]();
+   }
+   function answer3(){
+       next="q"+(parseInt(content[0])+1);
+       answer=3;
+       functionlist[next]();
+   }
+   functionlist=new Array();
+   functionlist.q1=function(){
+       point=[0,0,0,0,0];
+       content=[1,"1+1=?","2","田","大体5000",
+                "5000?どう意味だ？"];
+       show();
+   }
+   functionlist.q2=function(){
+        if(answer==1){point=[5,5,5,10,15]}else if(answer==2){point=[7,7,9,15,2]}else if(answer==3){point=[15,5,10,5,5]};
+        content=[2,"ソシャゲの遊び方","無課金勢最強！","無（理のない）課金","諭吉はガチャチケ",
+                "増えていくのは形無い数字。それに気づけない薄暗い部屋の君はクラン一の誇り高き戦士"];
+        show();
+   }
+   functionlist.q3=function(){
+       if(answer==1){point=[5,8,5,7,15]}else if(answer==2){point=[9,7,15,1,8]}else if(answer==3){point=[16,5,12,5,2]};
+       content=[3,"パプリカといえば","緑黄色野菜","米須玄師","オセアニアじゃあ常識",
+                "それってあなたの感想ですよね？"];
+       show();
+   }
+   functionlist.q4=function(){
+       if(answer==1){point=[5,5,1,10,19]}else if(answer==2){point=[9,7,7,5,12]}else if(answer==3){point=[15,8,10,2,5]};
+       content=[4,"好きな色は？","赤","青","無所属",
+                "無所属ってなんだよ。選べる色二色しかないし"];
+       show();
+   }
+   functionlist.q5=function(){
+       if(answer==1){point=[7,3,3,25,3]}else if(answer==2){point=[9,9,9,0,13]}else if(answer==3){point=[15,5,5,5,10]};
+       content=[5,"好きな数字は？","334","911","311",
+                "?????????謎の3ケタ"];
+       show();
+   }
+   functionlist.q6=function(){
+       if(answer==1){point=[8,8,15,2,7]}else if(answer==2){point=[7,7,4,15,7]}else if(answer==3){point=[15,14,1,5,5]};
+       content=[6,"彼女いる？","いる","いない","いりません",
+                "お、おう"];
+       show();
+   }
+   functionlist.q7=function(){
+       if(answer==1){point=[15,8,2,5,10]}else if(answer==2){point=[7,7,7,15,4]}else if(answer==3){point=[15,5,10,5,5]};
+       content=[7,"所属する組織","創価学会","MENSA","リア充撲滅の会"];
+       show();
+   }
+   functionlist.q8=function(){
+      if(answer==1){point=[10,8,7,5,10]}else if(answer==2){point=[9,5,7,2,17]}else if(answer==3){point=[15,3,15,3,4]};
+       content=[8,"","","",""];
+       show();
+       kekka();
+   }
+    function kekka(){
+    document.getElementById('b1').textContent = "";
+    document.getElementById('b2').textContent = "";
+    document.getElementById('b3').textContent = "";
+    document.getElementById('m1').textContent = "";
+    document.getElementById('m2').textContent = "";
+    var ctx = document.getElementById("myRaderChart");
+    var myRadarChart = new Chart(ctx, {
+        type: 'radar', 
+        data: { 
+            labels: ["戸山性", "個性", "ユーモア", "共産性", "知性"],
+            datasets: [{
+                label:"",
+                data: [score[0], score[1], score[2], score[3], score[4]],
+                backgroundColor: 'RGBA(225,95,150, 0.5)',
+                borderColor: 'RGBA(225,95,150, 1)',
+                borderWidth: 1,
+                pointBackgroundColor: 'RGB(46,106,177)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: '結果'
+            },
+            scale:{
+                ticks:{
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    stepSize: 10,
+                    callback: function(value, index, values){
+                        return  value
+                    }
+                }
+            }
+        }
+    });
+   }
+    </script>
+</body>
+</html>
